@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ContainerView Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-wrapper">
+    <div class="logo-group">
+        <img src="logo.png" alt="CLA Logo" class="login-logo">
+        <img src="ship-logo.png" alt="Ship Logo" class="login-logo partner-logo">
+    </div>     
+    <h1 class="brand-title">ContainerView</h1>
+    <div class="login-box">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="Email address" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" required>
+
+        <button type="button" id="clientLogin" class="login-btn">Log In</button>
+        <a id="staffLogin" class="staff-link" href="#">Log in as staff</a>
+      </form>
+      <button onclick="window.location.href='create-account.html'" style="background-color: grey; color: white; border: none; padding: 10px 20px; margin-top: 20px; width: 100%; cursor: pointer;">
+        Create New Account
+      </button>      
+      <p id="loginError" class="error-msg"></p>
+    </div>
+  </div>
+
+  <script>
+    function login(role) {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (email && password) {
+        localStorage.setItem('userRole', role);
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('loginError').innerText = 'Please enter email and password.';
+      }
+    }
+
+    document.getElementById('clientLogin').addEventListener('click', () => login('Client'));
+    document.getElementById('staffLogin').addEventListener('click', (e) => {
+      e.preventDefault();
+      login('Staff');
+    });
+  </script>
+</body>
+</html>

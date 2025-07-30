@@ -1,0 +1,37 @@
+<!-- navbar.html -->
+<style>
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #111;
+      color: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #444;
+      z-index: 1000;
+    }
+  
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  
+    .bottom-nav button:hover {
+      text-decoration: underline;
+      color: #00bcd4;
+    }
+  </style>
+  
+  <div class="bottom-nav">
+    <button onclick="location.href='dashboard.html'">🏠 Dashboard</button>
+    <button onclick="location.href='settings.html'">⚙️ Settings</button>
+    <button onclick="location.href='new-profile.html'">👤 Profile</button>
+  </div>
+

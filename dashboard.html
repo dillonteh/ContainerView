@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ContainerView Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <!-- Header with Logo and Title -->
+    <div class="brand">
+      <img src="logo.png" alt="CLA Logo Left" class="logo">
+      <h1>ContainerView</h1>
+      <img src="ship-logo.png" alt="CLA Logo Right" class="logo">
+    </div>
+    <!-- Welcome Message -->
+    <div class="welcome-msg">
+      Welcome Back, Bob!
+    </div>
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Search by Container ID" />
+      <!--Status Filter-->
+      <select id="statusFilter">
+        <option value="All">All Statuses</option>
+        <option value="In Transit">In Transit</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Delayed">Delayed</option>
+      </select>
+      <!-- Location Filter -->
+        <!-- <label for="locationFilter">Filter by Location:</label> -->
+        <select id="locationFilter">
+        <option value="All">All Locations</option>
+        <option value="Port Klang">Port Klang</option>
+        <option value="Singapore">Singapore</option>
+        <option value="Manila">Manila</option>
+        <option value="Pasir Gudang">Pasir Gudang</option>
+        <option value="Kota Kinabalu">Kota Kinabalu</option>
+        <option value="Tokyo">Tokyo</option>
+        <option value="Guangzhou">Guangzhou</option>
+        <option value="Busan">Busan</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <table id="containerTable">
+      <thead>
+        <tr>
+          <th>Container ID</th>
+          <th>Status</th>
+          <th>ETA</th>
+          <th>Current Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </main>
+
+  <script src="script.js"></script>
+  
+  <div id="navbar-placeholder"></div>
+
+<script>
+  fetch('navbar.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('navbar-placeholder').innerHTML = data;
+    });
+</script>
+
+</body>
+</html>

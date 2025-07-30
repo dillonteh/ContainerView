@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ContainerView - Create Account</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #fff;
+      color: black;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .logo {
+      height: 50px;
+      margin: 10px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin-left: 15px;
+      font-size: 2em;
+      color: #000;
+    }
+
+    .create-box {
+      background-color: #f0f0f0;
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #000;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #000;
+    }
+
+    .form-group input::placeholder {
+      color: #999;
+    }
+
+    .form-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .form-group label {
+      color: #333;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: #ccc;
+      color: black;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="logo.png" alt="Logo 1" class="logo" />
+    <img src="ship-logo.png" alt="Logo 2" class="logo" />
+    <h1>ContainerView</h1>
+  </div>
+
+  <div class="create-box">
+    <h2>Create a new account</h2>
+    <div class="form-group">
+      <input type="text" placeholder="First Name" />
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="Last Name" />
+    </div>
+    <div class="form-group">
+      <input type="email" placeholder="Email Address" />
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="CLA Account Number" />
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="Company Registration Number" />
+    </div>
+    <div class="form-group">
+      <input type="password" placeholder="Password" />
+    </div>
+    <div class="form-group">
+      <input type="password" placeholder="Re-Enter Password" />
+    </div>
+    <div class="form-group">
+      <label><input type="checkbox" /> I agree to the 
+        <span style="text-decoration: underline; cursor: pointer;">Terms & Conditions</span> and 
+        <span style="text-decoration: underline; cursor: pointer;">Privacy Policy</span>
+    </label>
+    </div>
+    <button class="btn btn-primary" onclick="window.location.href='dashboard.html'">Create New Account</button>      
+    <button class="btn btn-secondary" onclick="window.location.href='index.html'">Return to Log In</button>
+  </div>
+
+</body>
+</html>

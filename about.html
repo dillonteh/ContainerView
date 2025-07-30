@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About - ContainerView</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: black;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-bottom: 100px; /* prevent nav overlap */
+    }
+
+    .back-btn {
+      text-align: left;
+      display: block;
+      margin-bottom: 20px;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .credit {
+      text-align: center;
+      font-style: italic;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="settings.html" class="back-btn">← Back</a>
+    <h1>About ContainerView</h1>
+
+    <p>
+      ContainerView is a streamlined container tracking platform designed to offer real-time visibility into container movements and logistics data. This application aims to improve user experience, communication, and operational efficiency in port and container management.
+    </p>
+
+    <p class="section-title">Purpose</p>
+    <p>
+      The goal of this project is to simplify container tracking and enhance transparency for clients and internal staff of D&D Control (M) Sdn. Bhd. by delivering a modern, responsive, and usable interface.
+    </p>
+
+    <p class="section-title">Technologies Used</p>
+    <ul>
+      <li>HTML, CSS, JavaScript</li>
+      <li>Local, Storage-based prototype data</li>
+      <li>Responsive UI/UX prototyping principles</li>
+    </ul>
+
+    <p class="section-title">Features</p>
+    <ul>
+      <li>Container status and filtering by location</li>
+      <li>Individual container details with progress tracking</li>
+      <li>Login and account management mockup</li>
+      <li>Settings, profile editing, and privacy toggles</li>
+    </ul>
+
+    <div class="credit">
+      This application prototype was developed by <strong>Dillon Teh Whei Teik</strong> in collaboration with <strong>D&D Control (M) Sdn. Bhd.</strong><br>
+      As part of an internship software prototyping project (2025).
+    </div>
+  </div>
+
+  <div id="navbar-placeholder"></div>
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+  </script>
+</body>
+</html>

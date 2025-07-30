@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile - ContainerView</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root{
+      --page-bg: #f0f0f0;
+      --field-bg: #ccc;
+      --primary: #2196f3;
+      --text: #000;
+      --muted-text: #666;
+      --radius: 8px;
+      --container-w: 380px;   /* <- makes everything stack nicely */
+      --bottom-pad: 100px;    /* avoid overlap with fixed bottom nav */
+    }
+
+    body{
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--page-bg);
+      color: var(--text);
+    }
+
+    .container{
+      max-width: var(--container-w);
+      margin: 0 auto;
+      padding: 20px 16px var(--bottom-pad);
+      padding-top: 60px; /* add space for the fixed back button */
+      text-align: center;
+    }
+
+    .back-btn {
+        display: inline-block;
+        color: var(--text);
+        text-decoration: none;
+        font-weight: bold;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+    }
+
+    .h2{
+        margin: 0 0 24px;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .profile-heading {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 0 auto 24px;
+        padding-top: 20px;
+        text-align: center;
+        color: var(--text);
+      }      
+
+    .container {
+        max-width: var(--container-w);
+        margin: 0 auto;
+        padding: 60px 16px var(--bottom-pad); /* increased top padding */
+        text-align: center;
+      }
+
+    /* Avatar upload */
+    .avatar {
+        width: 120px;
+        height: 120px;
+        aspect-ratio: 1 / 1;               /* Force square dimensions */
+        background-color: #ccc;
+        border-radius: 50%;                /* Make it a circle */
+        display: flex;                     /* Use flex to center the text inside */
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        color: black;
+        cursor: pointer;
+        margin: 20px auto 24px;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        text-align: center;
+        transition: background-image 0.3s ease, opacity 0.3s ease;
+      }
+      
+
+    /* Stack every field to full width */
+    .form-field{
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      margin: 10px 0;
+      padding: 12px 14px;
+      background: #fff;              /* match your latest look */
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      box-sizing: border-box;
+      color: var(--text);
+    }
+
+    /*
+    .muted-field{
+      background: var(--field-bg);
+      color: var(--muted-text);
+      border: none;
+    }
+    */
+
+    .btn{
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: block;
+    }
+
+    .btn-small {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 6px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        background: #ddd;
+        color: black;
+        border: none;
+        cursor: pointer;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+      }      
+
+    .save-btn{
+      background: var(--primary);
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .logout-btn{
+      background: var(--field-bg);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="dashboard.html" class="back-btn">← Back</a>
+
+    <!-- <h2>Edit Account</h2> -->
+    <h2 class="profile-heading">Edit Account</h2>    
+
+    <!-- Avatar -->
+    <label for="avatarInput" class="avatar" id="avatarPreview">Add Photo</label>
+    <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+
+    <!-- Clear Profile Picture-->
+    <button id="removePhotoBtn" class="btn-small" style="display: none; background:#ddd; color:black; font-size:14px;">Remove Photo</button>
+      
+
+    <!-- Form fields stacked in one column -->
+    <input type="text" class="form-field" placeholder="First name" id="firstName">
+    <input type="text" class="form-field" placeholder="Last name" id="lastName">
+    <input type="text" class="form-field" placeholder="CLA Account Number" id="accountNo">
+    <input type="text" class="form-field" placeholder="Company Registration Number" id="regNo">
+    <input type="text" class="form-field" placeholder="Branch" id="branch">
+    <input type="text" class="form-field" placeholder="Change Contact Number" id="contactNo">
+    <input type="email" class="form-field" placeholder="Change Email address" id="email">
+    <input type="password" class="form-field" placeholder="Change Password" id="password">
+
+    <div style="height: 20px;"></div>
+
+    <button class="btn save-btn" onclick="alert('Account Details Successfully Saved!')">Save</button>
+    <button class="btn logout-btn" onclick="window.location.href='index.html'">Log out</button>
+  </div>
+
+  <!-- Shared bottom nav -->
+  <div id="navbar-placeholder"></div>
+
+  <script>
+    // Inject navbar
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+
+    // ----- Avatar upload + persistence -----
+    const input   = document.getElementById('avatarInput');
+    const preview = document.getElementById('avatarPreview');
+    const removeBtn = document.getElementById('removePhotoBtn');
+
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) {
+        preview.style.backgroundImage = `url('${savedImage}')`;
+        preview.textContent = "";
+        removeBtn.style.display = "block"; // Shows the button if an image exists
+      }      
+
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const imgData = e.target.result;
+        preview.style.backgroundImage = `url('${imgData}')`;
+        preview.textContent = "";
+        localStorage.setItem("profileImage", imgData);
+        removeBtn.style.display = "block"; // Shows the button after upload
+        };
+      reader.readAsDataURL(file);
+    });
+
+    removeBtn.addEventListener('click', () => {
+        localStorage.removeItem("profileImage");
+        preview.style.backgroundImage = "";
+        preview.textContent = "Add Photo";
+        removeBtn.style.display = "none"; // Hides the button after removal
+      });       
+
+    // (Optional) simple temp save of fields to localStorage
+    const fields = ["firstName","lastName","accountNo","regNo","branch","contactNo","email"];
+    // Load existing values
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      const v  = localStorage.getItem("profile_"+id);
+      if (v) el.value = v;
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        localStorage.setItem("profile_"+id, el.value);
+      });
+      alert("Profile saved (simulated).");
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      // Clear only what makes sense for your demo
+      // localStorage.clear(); // or selective remove
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ContainerView - Container Details</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      height: 50px;
+      margin-right: 20px;
+    }
+
+    .container-details {
+      margin-bottom: 30px;
+    }
+
+    .highlight {
+      font-size: 2em;
+      color: yellow;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .label {
+      color: hotpink;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .value {
+      color: white;
+      text-align: center;
+    }
+
+    .progress {
+      border-left: 4px solid green;
+      padding-left: 20px;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      width: fit-content;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      color: green;
+    }
+
+    .step.complete::before {
+      content: "✔️";
+      margin-right: 10px;
+    }
+
+    .step.incomplete::before {
+      content: "⚪";
+      margin-right: 10px;
+    }
+
+    .download-btn {
+      margin-top: 30px auto 0;
+      color: limegreen;
+      text-decoration: underline;
+      cursor: pointer;
+      display: block;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="dashboard.html">
+        <img src="logo.png" alt="CLA Logo" class="logo" style="cursor: pointer;">
+      </a>      
+    <h1>ContainerView</h1>
+  </div>
+
+  <div class="container-details">
+    <div class="label">Container ID:</div>
+    <div class="highlight" id="container-id">Loading...</div>
+
+    <div class="label">Status:</div>
+    <div class="value" id="status">Loading...</div>
+
+    <div class="label">Estimated Arrival:</div>
+    <div class="value" id="eta">Loading...</div>
+
+    <div class="label">Port of Loading / Origin:</div>
+    <div class="value" id="origin">Loading...</div>
+
+    <div class="label">Current Location:</div>
+    <div class="value" id="location">Loading...</div>
+  </div>
+
+  <div class="label">Tracking Progress:</div>
+  <div class="progress" id="tracking-progress">
+    <!-- Progress steps will be injected here -->
+  </div>
+
+  <div class="download-btn" onclick="alert('CKAU9876543_report saved to Downloads')">[Download PDF Report]</div>
+  
+
+  <!--
+  <script>
+    const container = JSON.parse(localStorage.getItem("selectedContainer"));
+
+    if (container) {
+      document.getElementById("container-id").textContent = container.id;
+      document.getElementById("eta").textContent = container.eta;
+      document.getElementById("origin").textContent = container.origin;
+      document.getElementById("location").textContent = container.location;
+
+      const steps = ["Departed Origin", "At Port", "Customs", "Delivered"];
+      const progress = document.getElementById("tracking-progress");
+
+      steps.forEach((step, index) => {
+        const div = document.createElement("div");
+        div.className = "step " + (index <= container.progressIndex ? "complete" : "incomplete");
+        div.textContent = step;
+        progress.appendChild(div);
+      });
+    } else {
+      document.body.innerHTML = "<h2 style='color: red;'>No container data found.</h2>";
+    }
+  </script>
+-->
+
+    <script>
+        const container = JSON.parse(localStorage.getItem("selectedContainer"));
+    
+        if (container) {
+        // Random hardcoded ports
+        const ports = [
+            "Port of Shanghai, China",
+            "Jawaharlal Nehru Port, India",
+            "Kaohsiung Harbor, Taiwan",
+            "Port of Ningbo-Zhoushan, China",
+            "Laem Chabang Port, Thailand",
+            "Port of Shenzhen, China"
+        ];
+        const randomOrigin = ports[Math.floor(Math.random() * ports.length)];
+    
+        // document.getElementById("container-id").textContent = container.id;
+        // Sets Container ID text as usual
+        const containerIdElement = document.getElementById("container-id");
+        containerIdElement.textContent = container.id;
+
+        // Checks respective status of container and applies correct text colour dynamically using .style.color
+        if (container.status === "Delivered") {
+        containerIdElement.style.color = "green";
+        } else if (container.status === "In Transit") {
+        containerIdElement.style.color = "yellow";
+        } else if (container.status === "Delayed") {
+        containerIdElement.style.color = "crimson";
+        }
+
+        document.getElementById("eta").textContent = container.eta;
+        document.getElementById("origin").textContent = randomOrigin;
+        document.getElementById("location").textContent = container.location;
+        document.getElementById("status").textContent = container.status;
+    
+        const steps = ["Departed Origin", "At Port", "Customs", "Delivered"];
+        const progress = document.getElementById("tracking-progress");
+    
+        /*
+        steps.forEach((step, index) => {
+            const div = document.createElement("div");
+            div.className = "step " + (index <= container.progressIndex ? "complete" : "incomplete");
+            div.textContent = step;
+            progress.appendChild(div);
+        });
+*/
+
+        const status = container.status;
+
+        // Clear any existing progress
+        progress.innerHTML = "";
+
+        // Determine how many steps to check off
+        let progressIndex = 0;
+        let specialColorStep = -1;
+        let specialColor = "";
+
+        // Always check the first step
+        if (status === "Delivered") {
+        progressIndex = steps.length - 1; // All complete
+        } else if (status === "In Transit") {
+        progressIndex = 0; // Only first step complete
+        specialColorStep = 1; // At Port = yellow
+        specialColor = "goldenrod";
+        } else if (status === "Delayed") {
+        progressIndex = 0; // Only first step complete
+        specialColorStep = 1; // Could also be 2 for Customs if you want
+        specialColor = "crimson";
+        }
+
+        // Generate step indicators
+        steps.forEach((step, index) => {
+        const div = document.createElement("div");
+
+        if (index <= progressIndex) {
+            div.className = "step complete";
+        } else if (index === specialColorStep) {
+            div.className = "step";
+            div.style.color = specialColor;
+        } else {
+            div.className = "step incomplete";
+        }
+
+        div.textContent = step;
+        progress.appendChild(div);
+        });
+
+
+        } else {
+        document.body.innerHTML = "<h2 style='color: red;'>No container data found.</h2>";
+        }
+    </script>
+    
+    <div id="navbar-placeholder"></div>
+
+<script>
+  fetch('navbar.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('navbar-placeholder').innerHTML = data;
+    });
+</script>
+
+
+</body>
+</html>

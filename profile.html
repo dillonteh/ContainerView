@@ -1,0 +1,124 @@
+<!--
+        --- REDUNDANT DUE TO FORMATTING ERRORS --- 
+    NEW CODE FOR PROFILE.HTML MOVED TO -> NEW-PROFILE.HTML
+    KEPT AS REFERENCE FOR FURTHER ITERATIONS OR FUTURE UPDATES
+----------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile - ContainerView</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+    .back-btn {
+      text-align: left;
+      display: block;
+      margin-bottom: 10px;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    h2 {
+      margin-top: 0;
+      text-decoration: underline;
+    }
+    .avatar {
+      margin: 20px auto;
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      border-radius: 50%;
+      line-height: 100px;
+      font-weight: bold;
+    }
+    .input[type="text"], input[type="email"], input[type="password"] {
+      display: block;
+      width: 90%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 10px;
+      background-color: #ccc;
+      border: none;
+      border-radius: 5px;
+    }
+    .btn {
+      width: 90%;
+      max-width: 300px;
+      padding: 12px;
+      margin: 10px auto;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+    }
+    .save-btn {
+      background-color: #2196f3;
+      color: white;
+    }
+    .logout-btn {
+      background-color: #ccc;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="dashboard.html" class="back-btn">← Back</a>
+    <h2>Edit Account</h2>
+    <label for="avatarInput" class="avatar" id="avatarPreview">Add Photo</label>
+    <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+    <input type="text" placeholder="First name" />
+    <input type="text" placeholder="Last name" />
+    <input type="text" placeholder="CLA Account Number" />
+    <input type="text" placeholder="Company Registration Number" />
+    <input type="text" placeholder="Branch" />
+    <input type="text" placeholder="Change Contact Number" />
+    <input type="email" placeholder="Change Email address" />
+    <input type="password" placeholder="Change Password" />
+    <button class="btn save-btn" onclick="alert('Account Details Successfully Saved!')">Save</button>
+    <button class="btn logout-btn" onclick="window.location.href='index.html'">Log out</button>
+  </div>
+
+  <div id="navbar-placeholder"></div>
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+  </script>
+
+  <script>
+    const input = document.getElementById('avatarInput');
+    const preview = document.getElementById('avatarPreview');
+  
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.style.backgroundImage = `url('${e.target.result}')`;
+          preview.style.backgroundSize = 'cover';
+          preview.style.backgroundPosition = 'center';
+          preview.textContent = ""; // remove "Add Photo" text
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+  
+</body>
+</html>
+
+--> 
